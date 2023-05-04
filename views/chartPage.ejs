@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/css/coins.css" />
+    <title>Chart</title>
+    <style>
+      body {
+        overflow-y: scroll;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/crypto">Crypto-Sim</a>
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="/login">Log Out</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="coinsPage">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="addBalance">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                Deposit
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/profits">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                Report
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/leaderBoard">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users align-text-bottom" aria-hidden="true">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                Leader Board
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/chart">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers align-text-bottom" aria-hidden="true">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                  <polyline points="2 17 12 22 22 17"></polyline>
+                  <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+                Analyze
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+        <div>
+          <canvas id="myChart"></canvas>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+          const showLegend = true;
+          const dataBitcoin = [0.11200362, 2.17816566, 0.21824429, 4.69453833, 29.73438898, 23.73881347];
+          const dataEthereum = [-0.03095545, 1.81304502, 0.66475504, 4.7901159, 21.10218829, 15.83240582];
+          const dataTether = [0.00134467, -0.00828513, 0.00985563, 0.03232223, 0.02396381, 0.0257715];
+          const dataBNB = [-0.25540352, 0.75743442, -1.64635974, 5.06879439, 12.18656271, 0.89378582];
+          const dataUSDC = [0.01417184, 0.0066638, 0.01495701, 0.03863995, 0.01696288, 0.02631613];
+          const labels = [
+            'change_1h',
+            'change_24h',
+            'change_7d',
+            'change_30d',
+            'change_60d',
+            'change_90d',
+          ];
+
+          data = {
+            labels,
+            datasets: [
+              {
+                label: 'Bitcoin',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: dataBitcoin
+              },
+              {
+                label: 'Ethereum',
+                backgroundColor: 'rgb(51, 255, 51)',
+                borderColor: 'rgb(51, 255, 51)',
+                data: dataEthereum
+              },
+              {
+                label: 'Tether',
+                backgroundColor: 'rgb(204, 229, 255)',
+                borderColor: 'rgb(204, 229, 255)',
+                data: dataTether
+              },
+              {
+                label: 'BNB',
+                backgroundColor: 'rgb(127, 0, 255)',
+                borderColor: 'rgb(127, 0, 255)',
+                data: dataBNB
+              },
+              {
+                label: 'USDC',
+                backgroundColor: 'rgb(255, 128, 0)',
+                borderColor: 'rgb(255, 128, 0)',
+                data: dataUSDC
+              }
+            ],
+          };
+
+          const config = {
+            type: 'line',
+            data,
+            options: {plugins: {
+              legend: {
+                display: showLegend
+              }
+            }},
+          };
+
+          var myChart = new Chart(document.getElementById('myChart'), config);
+        </script>
+
+
+      </main>
+    </div>
+  </body>
+</html>
