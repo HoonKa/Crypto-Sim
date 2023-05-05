@@ -52,6 +52,7 @@ async function renderCoinsPage(req: Request, res: Response): Promise<void> {
     }
 
     res.render('coinsPage', { coins, user });
+    return;
   }
   // else {
   //   console.log(await response.text());
