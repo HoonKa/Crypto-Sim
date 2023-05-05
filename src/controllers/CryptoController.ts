@@ -84,7 +84,7 @@ async function renderCoinsPage(req: Request, res: Response): Promise<void> {
     res.render('coinsPage', { coins, user });
   }
 
-  res.send('not ok');
+  // res.send('not ok');
 }
 
 export { addCryptoCurrency, renderCoinsPage };
