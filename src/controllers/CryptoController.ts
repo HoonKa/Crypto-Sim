@@ -54,7 +54,7 @@ async function renderCoinsPage(req: Request, res: Response): Promise<void> {
   } else {
     const coins = [
       {
-        name: 'Bitcoin',
+        slug: 'Bitcoin',
         symbold: 'BTC',
         quote: {
           USD: {
