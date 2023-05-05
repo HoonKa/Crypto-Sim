@@ -52,6 +52,7 @@ async function renderCoinsPage(req: Request, res: Response): Promise<void> {
 
     res.render('coinsPage', { coins, user });
   } else {
+    console.log(await response.text());
     const coins = [
       {
         slug: 'Bitcoin',
