@@ -34,12 +34,13 @@ async function renderCoinsPage(req: Request, res: Response): Promise<void> {
     return;
   }
 
-  const { userId } = req.session.authenticatedUser;
-  const user = await getUserByID(userId);
   if (response.ok) {
     // success
     const coinData = await response.json();
     const coins = coinData.data;
+
+    const { userId } = req.session.authenticatedUser;
+    const user = await getUserByID(userId);
 
     let name: string;
     let price: number;
@@ -51,41 +52,40 @@ async function renderCoinsPage(req: Request, res: Response): Promise<void> {
     }
 
     res.render('coinsPage', { coins, user });
-  } else {
-    console.log(await response.text());
-    const coins = [
-      {
-        slug: 'Bitcoin',
-        symbold: 'BTC',
-        quote: {
-          USD: {
-            price: 100,
-          },
-        },
-      },
-      // {
-      //   name: 'Bitcoin',
-      //   symbold: 'BTC',
-      //   quote: {
-      //     USD: {
-      //       price: 100,
-      //     },
-      //   },
-      // },
-      // {
-      //   name: 'Bitcoin',
-      //   symbold: 'BTC',
-      //   quote: {
-      //     USD: {
-      //       price: 100,
-      //     },
-      //   },
-      // },
-    ];
-    res.render('coinsPage', { coins, user });
   }
+  // else {
+  //   console.log(await response.text());
+  //   const coins = [
+  //     {
+  //       slug: 'Bitcoin',
+  //       symbold: 'BTC',
+  //       quote: {
+  //         USD: {
+  //           price: 100,
+  //         },
+  //       },
+  //     },
+  // {
+  //   name: 'Bitcoin',
+  //   symbold: 'BTC',
+  //   quote: {
+  //     USD: {
+  //       price: 100,
+  //     },
+  //   },
+  // },
+  // {
+  //   name: 'Bitcoin',
+  //   symbold: 'BTC',
+  //   quote: {
+  //     USD: {
+  //       price: 100,
+  //     },
+  //   },
+  // },
+  // ];
 
-  // res.send('not ok');
+  res.send('not ok');
 }
 
 export { addCryptoCurrency, renderCoinsPage };
